@@ -19,7 +19,7 @@ public class User {
     private Date createdAt;
 
     @Enumerated(EnumType.STRING)
-    private ActiveStatus active = ActiveStatus.NO;
+    private ActiveStatus active = ActiveStatus.YES;
 
     private double balance;
 
