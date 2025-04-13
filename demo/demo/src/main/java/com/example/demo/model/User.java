@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
@@ -30,42 +33,14 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = new Date();
+        ZonedDateTime utcPlus3Time = ZonedDateTime.now(ZoneId.of("UTC+3"));
+        this.createdAt = Date.from(utcPlus3Time.toInstant());
+
+        // Debugging logs to confirm timezone change
+        System.out.println("Timestamp in UTC+3: " + utcPlus3Time);
+        System.out.println("Converted to Date: " + this.createdAt);
+
+
+        // todo displayed timezone
     }
 }
-
-
-
-//package com.example.demo.model;
-//
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import jakarta.persistence.Id;
-//
-//@Entity
-//public class User {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long userId;
-//    private String name;
-//
-//    // Getters and setters
-//    public Long getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(Long userId) {
-//        this.userId = userId;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//}
-//
