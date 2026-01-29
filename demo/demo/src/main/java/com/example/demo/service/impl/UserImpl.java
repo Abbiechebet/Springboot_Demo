@@ -10,9 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 public class UserImpl implements UserService {
@@ -39,15 +36,17 @@ public class UserImpl implements UserService {
         User existingUser = userRepository.findById(user.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user.getUserId()));
         existingUser.setName(user.getName());
+        existingUser.setBalance(user.getBalance());
+        existingUser.setActive(user.getActive());
         return userRepository.save(existingUser);
     }
 
     @Override
-    public void deleteUser(Long userid) {
-        if (!userRepository.existsById(userid)) {
-            throw new ResourceNotFoundException("User not found with id: " + userid);
+    public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User not found with id: " + userId);
         }
-        userRepository.deleteById(userid);
+        userRepository.deleteById(userId);
     }
 }
 
